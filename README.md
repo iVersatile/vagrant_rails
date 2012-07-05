@@ -13,6 +13,6 @@ If those dependencies are satisfied then you should be able to do the following:
     cd vagrant_rails
     vagrant up dev
     vagrant ssh dev
-    cd workspace && bundle install --local && rake db:setup && rackup
-
+    cd workspace && script/server
+    # visit http://localhost:9292/
 

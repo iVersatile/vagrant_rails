@@ -24,9 +24,9 @@ Vagrant::Config.run do |config|
       chef.add_recipe("apt")
       chef.add_recipe("postgresql::apt_postgresql_ppa")
       chef.add_recipe("postgresql::server")
-      chef.add_recipe "workstation"
       chef.add_recipe "workstation::bash"
       chef.add_recipe "workstation::vim"
+      chef.add_recipe "workstation::default"
       chef.json = {
                     :postgresql => {
                       :version  => "9.1",
