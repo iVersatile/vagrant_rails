@@ -19,7 +19,7 @@ RESET_COLOR="\[\e[0m\]"
 set -o vi
 
 if [[ -n "$PS1" ]]; then
-  export PS1="$CYAN\\w${GREEN} ? ${RESET_COLOR}"
+  export PS1="$BLUE\\u $CYAN\\w${GREEN} ? ${RESET_COLOR}"
   export SUDO_PS1="$BLUE\\u$WHITE in $LGRAY\\w\\n${RED}λ ${RESET_COLOR}"
 fi
 
