@@ -3,8 +3,8 @@
 This repo contains nearly all that's necessary to have a rails dev workstation
 setup. There are a couple assumptions:
 
-1. Your host has VirtualBox installed.
-2. You have the vagrant gem installed.
+1. Your host has [VirtualBox](https://www.virtualbox.org/wiki/Downloads) installed.
+2. You have the [vagrant](http://downloads.vagrantup.com/tags/v1.0.3) installed installed.
 
 If those dependencies are satisfied then you should be able to do the following:
 
