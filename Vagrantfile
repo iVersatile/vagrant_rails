@@ -47,9 +47,29 @@ Vagrant::Config.run do |config|
     # Now using production like web servers
     config.vm.forward_port 80, 8080
 
+    config.vm.share_folder "rails_app", "/opt/nginx/sites/app", "#{APP_DIR}"
+
     config.vm.provision :chef_solo do |chef|
-      chef.cookbooks_path = ["#{INFRA_DIR}/site-cookbooks"]
-      chef.add_recipe "web_server"
+      chef.cookbooks_path = ["#{INFRA_DIR}/site-cookbooks", "#{INFRA_DIR}/cookbooks"]
+      chef.add_recipe("apt")
+      chef.add_recipe("postgresql::apt_postgresql_ppa")
+      chef.add_recipe("postgresql::server")
+      chef.add_recipe 'passenger_nginx'
+      chef.add_recipe 'demo_app'
+      chef.json = {
+                    :passenger => { :nginx_prefix => '/opt/nginx' },
+                    :postgresql => {
+                      :version  => "9.1",
+                      :listen_addresses => "*",
+                      :hba => [
+                        { :method => "trust", :address => "0.0.0.0/0" },
+                        { :method => "trust", :address => "::1/0" },
+                      ],
+                      :password => {
+                        :postgres => "password"
+                      }
+                    }
+                  }
     end
   end
 end
