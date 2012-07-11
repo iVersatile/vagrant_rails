@@ -1,0 +1,25 @@
+#!/bin/bash
+
+CHEF_SOLO=`which chef-solo`
+
+set -e
+
+function main() {
+
+  if [ "$CHEF_SOLO" = "" ]; then
+    echo did not find chef-solo, installing...
+    install_chef
+  fi
+
+  run_host_cookbook
+}
+
+function install_chef() {
+  sudo gem install chef --no-ri --no-rdoc
+}
+
+function run_host_cookbook() {
+  sudo chef-solo -c infra/chef-config.rb -j infra/host-dna.json
+}
+
+main
