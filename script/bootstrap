@@ -2,8 +2,6 @@
 
 CHEF_SOLO=`which chef-solo`
 
-set -e
-
 function main() {
 
   if [ "$CHEF_SOLO" = "" ]; then
@@ -14,7 +12,16 @@ function main() {
   run_host_cookbook
 }
 
+function update_rubygems_if_necessary() {
+  GEM_VERSION=`gem -v | grep 1.8`
+  if [ "$GEM_VERSION" = "" ] then
+    echo rubygems is out of date, updating...
+    sudo gem update --system
+  fi
+}
+
 function install_chef() {
+  update_rubygems_if_necessary
   sudo gem install chef --no-ri --no-rdoc
 }
 
